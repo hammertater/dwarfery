@@ -1,0 +1,36 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+			"top": "dwarfery:blocks/hot_plate_top",
+			"particle": "dwarfery:blocks/hot_plate_top",
+			"front": "dwarfery:blocks/hot_plate_front_off",
+			"side": "dwarfery:blocks/hot_plate_side",
+			"coil": "dwarfery:blocks/hot_iron",
+			"bottom": "dwarfery:blocks/hot_plate_bottom"
+        },
+        "model": "dwarfery:hot_plate",
+        "uvlock": true
+    },
+    "variants": {
+		"active=true": {
+			"facing=north": { "model": "dwarfery:hot_plate" },
+			"facing=south": { "model": "dwarfery:hot_plate", "y": 180 },
+			"facing=west":  { "model": "dwarfery:hot_plate", "y": 270 },
+			"facing=east":  { "model": "dwarfery:hot_plate", "y": 90 },
+			"textures": {"front": "dwarfery:blocks/hot_plate_front_on"}
+		},
+		"active=false": {
+			"facing=north": { "model": "dwarfery:hot_plate" },
+			"facing=south": { "model": "dwarfery:hot_plate", "y": 180 },
+			"facing=west":  { "model": "dwarfery:hot_plate", "y": 270 },
+			"facing=east":  { "model": "dwarfery:hot_plate", "y": 90 },
+			"textures": {"front": "dwarfery:blocks/hot_plate_front_off"}
+		},
+		"inventory": [
+			{
+				"transform": "forge:default-block"
+			}
+        ],
+    }
+}

@@ -1,0 +1,16 @@
+modLoader="javafml"
+loaderVersion="[32,)"
+license="All rights reserved"
+issueTrackerURL="https://github.com/hammertater/dwarfery/issues"
+
+[[mods]]
+modId="dwarfery"
+version="${file.jarVersion}"
+updateJSONURL="https://raw.githubusercontent.com/hammertater/dwarfery/main/update.json"
+displayURL="https://github.com/hammertater/dwarfery/"
+logoFile="logo.png"
+credits="Special thanks to Gromblimb the dwarf."
+authors="HammerTater"
+description='''
+Dwarves.
+'''

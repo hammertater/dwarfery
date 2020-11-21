@@ -1,0 +1,170 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"top": "dwarfery:blocks/hot_plate_top",
+		"particle": "dwarfery:blocks/hot_plate_top",
+		"front": "dwarfery:blocks/hot_plate_front_off",
+		"side": "dwarfery:blocks/hot_plate_side",
+		"coil": "dwarfery:blocks/wrought_iron",
+		"bottom": "dwarfery:blocks/hot_plate_bottom"
+	},
+	"elements": [
+		{
+			"name": "Body",
+			"from": [0, 0, 0],
+			"to": [16, 15, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 15], "texture": "#front"},
+				"east": {"uv": [0, 0, 16, 15], "texture": "#side"},
+				"south": {"uv": [0, 0, 16, 15], "texture": "#side"},
+				"west": {"uv": [0, 0, 16, 15], "texture": "#side"},
+				"up": {"uv": [0, 0, 16, 16], "rotation": 270, "texture": "#top"},
+				"down": {"uv": [0, 0, 16, 16], "rotation": 90, "texture": "#bottom"}
+			}
+		},
+		{
+			"from": [2, 15, 1.5],
+			"to": [14, 16, 2.5],
+			"faces": {
+				"north": {"uv": [14, 2, 15, 14], "rotation": 90, "texture": "#coil"},
+				"east": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"south": {"uv": [14, 2, 15, 14], "rotation": 270, "texture": "#coil"},
+				"west": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"up": {"uv": [14, 2, 15, 14], "rotation": 270, "texture": "#coil"}
+			}
+		},
+		{
+			"from": [2, 15, 5.5],
+			"to": [14, 16, 6.5],
+			"faces": {
+				"north": {"uv": [10, 2, 11, 14], "rotation": 90, "texture": "#coil"},
+				"east": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"south": {"uv": [10, 2, 11, 14], "rotation": 270, "texture": "#coil"},
+				"west": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"up": {"uv": [10, 2, 11, 14], "rotation": 270, "texture": "#coil"}
+			}
+		},
+		{
+			"from": [2, 15, 9.5],
+			"to": [14, 16, 10.5],
+			"faces": {
+				"north": {"uv": [6, 2, 7, 14], "rotation": 90, "texture": "#coil"},
+				"east": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"south": {"uv": [6, 2, 7, 14], "rotation": 270, "texture": "#coil"},
+				"west": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"up": {"uv": [6, 2, 7, 14], "rotation": 270, "texture": "#coil"}
+			}
+		},
+		{
+			"from": [2, 15, 13.5],
+			"to": [14, 16, 14.5],
+			"faces": {
+				"north": {"uv": [2, 2, 3, 14], "rotation": 90, "texture": "#coil"},
+				"east": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"south": {"uv": [2, 2, 3, 14], "rotation": 270, "texture": "#coil"},
+				"west": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"up": {"uv": [2, 2, 3, 14], "rotation": 270, "texture": "#coil"}
+			}
+		},
+		{
+			"from": [2, 15, 3.5],
+			"to": [14, 16, 4.5],
+			"faces": {
+				"north": {"uv": [12, 2, 13, 14], "rotation": 90, "texture": "#coil"},
+				"east": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"south": {"uv": [12, 2, 13, 14], "rotation": 270, "texture": "#coil"},
+				"west": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"up": {"uv": [12, 2, 13, 14], "rotation": 270, "texture": "#coil"}
+			}
+		},
+		{
+			"from": [2, 15, 7.5],
+			"to": [14, 16, 8.5],
+			"faces": {
+				"north": {"uv": [8, 2, 9, 14], "rotation": 90, "texture": "#coil"},
+				"east": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"south": {"uv": [8, 2, 9, 14], "rotation": 270, "texture": "#coil"},
+				"west": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"up": {"uv": [8, 2, 9, 14], "rotation": 270, "texture": "#coil"}
+			}
+		},
+		{
+			"from": [2, 15, 11.5],
+			"to": [14, 16, 12.5],
+			"faces": {
+				"north": {"uv": [4, 2, 5, 14], "rotation": 90, "texture": "#coil"},
+				"east": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"south": {"uv": [4, 2, 5, 14], "rotation": 270, "texture": "#coil"},
+				"west": {"uv": [0, 0, 1, 1], "texture": "#coil"},
+				"up": {"uv": [4, 2, 5, 14], "rotation": 270, "texture": "#coil"}
+			}
+		},
+		{
+			"from": [1, 15, 1.5],
+			"to": [2, 16, 4.5],
+			"faces": {
+				"north": {"uv": [14, 1, 15, 2], "texture": "#coil"},
+				"east": {"uv": [12, 1, 15, 2], "texture": "#coil"},
+				"south": {"uv": [12, 1, 13, 2], "texture": "#coil"},
+				"west": {"uv": [12, 1, 15, 2], "rotation": 180, "texture": "#coil"},
+				"up": {"uv": [12, 1, 15, 2], "rotation": 270, "texture": "#coil"}
+			}
+		},
+		{
+			"from": [1, 15, 5.5],
+			"to": [2, 16, 8.5],
+			"faces": {
+				"north": {"uv": [10, 1, 11, 2], "texture": "#coil"},
+				"east": {"uv": [8, 1, 11, 2], "texture": "#coil"},
+				"south": {"uv": [8, 1, 9, 2], "texture": "#coil"},
+				"west": {"uv": [8, 1, 11, 2], "rotation": 180, "texture": "#coil"},
+				"up": {"uv": [8, 1, 11, 2], "rotation": 270, "texture": "#coil"}
+			}
+		},
+		{
+			"from": [14, 15, 3.5],
+			"to": [15, 16, 6.5],
+			"faces": {
+				"north": {"uv": [12, 14, 13, 15], "texture": "#coil"},
+				"east": {"uv": [10, 14, 13, 15], "texture": "#coil"},
+				"south": {"uv": [10, 14, 11, 15], "texture": "#coil"},
+				"west": {"uv": [10, 14, 13, 15], "rotation": 180, "texture": "#coil"},
+				"up": {"uv": [10, 14, 13, 15], "rotation": 270, "texture": "#coil"}
+			}
+		},
+		{
+			"from": [1, 15, 9.5],
+			"to": [2, 16, 12.5],
+			"faces": {
+				"north": {"uv": [6, 1, 7, 2], "texture": "#coil"},
+				"east": {"uv": [4, 1, 7, 2], "texture": "#coil"},
+				"south": {"uv": [4, 1, 5, 2], "texture": "#coil"},
+				"west": {"uv": [4, 1, 7, 2], "rotation": 180, "texture": "#coil"},
+				"up": {"uv": [4, 1, 7, 2], "rotation": 270, "texture": "#coil"}
+			}
+		},
+		{
+			"from": [14, 15, 7.5],
+			"to": [15, 16, 10.5],
+			"faces": {
+				"north": {"uv": [8, 14, 9, 15], "texture": "#coil"},
+				"east": {"uv": [6, 14, 9, 15], "texture": "#coil"},
+				"south": {"uv": [6, 14, 7, 15], "texture": "#coil"},
+				"west": {"uv": [6, 14, 9, 15], "rotation": 180, "texture": "#coil"},
+				"up": {"uv": [6, 14, 9, 15], "rotation": 270, "texture": "#coil"}
+			}
+		},
+		{
+			"from": [14, 15, 11.5],
+			"to": [15, 16, 14.5],
+			"faces": {
+				"north": {"uv": [4, 14, 5, 15], "texture": "#coil"},
+				"east": {"uv": [2, 14, 5, 15], "texture": "#coil"},
+				"south": {"uv": [2, 14, 3, 15], "texture": "#coil"},
+				"west": {"uv": [2, 14, 5, 15], "rotation": 180, "texture": "#coil"},
+				"up": {"uv": [2, 14, 5, 15], "rotation": 270, "texture": "#coil"}
+			}
+		}
+	],
+	"display": {}
+}

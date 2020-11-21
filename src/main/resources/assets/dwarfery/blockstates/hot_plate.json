@@ -1,0 +1,49 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+			"top": "dwarfery:blocks/hot_plate_top",
+			"particle": "dwarfery:blocks/hot_plate_top",
+			"front": "dwarfery:blocks/hot_plate_front_off",
+			"side": "dwarfery:blocks/hot_plate_side",
+			"coil": "dwarfery:blocks/wrought_iron",
+			"bottom": "dwarfery:blocks/hot_plate_bottom"
+        },
+        "model": "dwarfery:hot_plate",
+        "uvlock": true
+    },
+    "variants": {
+		"inventory": [
+			{
+				"transform": "forge:default-block"
+			}
+		],
+		"facing": {
+			"north": {
+			},
+			"south": {
+				"y": 180
+			},
+			"east": {
+				"y": 90
+			},
+			"west": {
+				"y": 270
+			}
+		},
+		"active": {
+			"true": {
+				"textures": {
+					"front": "dwarfery:blocks/hot_plate_front_on",
+					"coil": "dwarfery:blocks/hot_iron"
+				}
+			},
+			"false": {
+				"textures": {
+					"front": "dwarfery:blocks/hot_plate_front_off",
+					"coil": "dwarfery:blocks/wrought_iron"
+				}
+			}
+		}
+	}
+}

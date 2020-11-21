@@ -1,0 +1,16 @@
+{
+  "modListVersion": 2,
+  "modList": [{
+    "modid": "dwarfery",
+    "name": "Dwarfery",
+    "description": "Adds dwarves.",
+    "version": "${mod_version}",
+    "mcversion": "${minecraft_version}",
+    "updateUrl": "https://raw.githubusercontent.com/hammertater/dwarfery/main/update.json",
+    "authorList": [ "HammerTater" ],
+    "logoFile": "logo.png",
+    "screenshots": [  ],
+    "parent": "",
+    "dependants": [  ]
+  }]
+}
