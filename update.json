@@ -1,0 +1,9 @@
+{
+  "homepage": "https://github.com/hammertater/dwarfery",
+  "1.16.1": {
+  },
+  "promos": {
+    "1.16.1-latest": "0.0",
+    "1.16.1-recommended": "0.0"
+  }
+}
