@@ -5,6 +5,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ContainerBlock;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
@@ -16,6 +19,7 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -56,6 +60,16 @@ public class HotPlateBlock extends ContainerBlock {
                 makeCuboidShape(1, 15, 1, 15, 16, 15)
         );
         return shape;
+    }
+
+    // Copied from MagmaBlock
+    @Override
+    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
+        if (!entityIn.func_230279_az_() && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entityIn)) {
+            entityIn.attackEntityFrom(DamageSource.HOT_FLOOR, 1.0F);
+        }
+
+        super.onEntityWalk(worldIn, pos, entityIn);
     }
 
     @Override

@@ -7,6 +7,7 @@ import ht.dwarfery.inventory.container.ContainerStacks;
 import ht.dwarfery.inventory.container.HotPlateContainer;
 import ht.dwarfery.inventory.container.HotPlateData;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.MagmaBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ISidedInventory;
