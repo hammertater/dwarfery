@@ -1,0 +1,11 @@
+{
+  "block.dwarfery.geode": "Geode",
+  "block.dwarfery.hot_plate": "Hot Plate",
+  "container.dwarfery.hot_plate": "Hot Plate",
+  "item.dwarfery.dwarf_mort": "Dwarf Mort",
+  "item.dwarfery.geode": "Geode",
+  "item.dwarfery.hot_plate": "Hot Plate",
+  "tile.dwarfery.dwarf_mort": "Dwarf Mort",
+  "tile.dwarfery.geode": "Geode",
+  "tile.dwarfery.hot_plate": "Hot Plate"
+}

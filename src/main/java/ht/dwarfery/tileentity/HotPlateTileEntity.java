@@ -2,71 +2,60 @@ package ht.dwarfery.tileentity;
 
 import ht.dwarfery.block.HotPlateBlock;
 import ht.dwarfery.init.ModTileEntities;
+import ht.dwarfery.inventory.container.ContainerStacks;
 import ht.dwarfery.inventory.container.HotPlateContainer;
+import ht.dwarfery.inventory.container.HotPlateData;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.IIntArray;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-import static net.minecraft.tileentity.AbstractFurnaceTileEntity.isFuel;
 import static net.minecraftforge.common.ForgeHooks.getBurnTime;
 
-public class HotPlateTileEntity extends LockableTileEntity implements ISidedInventory, ITickableTileEntity {
+public class HotPlateTileEntity extends LockableTileEntity implements INamedContainerProvider, ISidedInventory, ITickableTileEntity {
 
-    public static final int INVENTORY_SIZE = 1;
-    public static final int DATA_SIZE = 1;
+    public static final int NUM_FUEL_SLOTS = 1;
 
-    protected NonNullList<ItemStack> items = NonNullList.withSize(INVENTORY_SIZE, ItemStack.EMPTY);
-    private static final int[] SLOTS = new int[]{0};
-    private int burnTime;
+    private ContainerStacks fuelStacks;
 
-    protected final IIntArray hotPlateData = new IIntArray() {
-        @Override
-        public int get(int index) {
-            return HotPlateTileEntity.this.burnTime;
-        }
+    private final HotPlateData data = new HotPlateData();
 
-        @Override
-        public void set(int index, int value) {
-            HotPlateTileEntity.this.burnTime = value;
-        }
-
-        @Override
-        public int size() {
-            return 1;
-        }
-    };
+    private final String NBT_FUEL_STACKS = "FuelStacks";
 
     public HotPlateTileEntity() {
         super(ModTileEntities.HOT_PLATE.get());
+        fuelStacks = ContainerStacks.createForTileEntity(NUM_FUEL_SLOTS, this::isUsableByPlayer, this::markDirty);
     }
 
     @Override
     public int[] getSlotsForFace(Direction side) {
-        return SLOTS;
+        return new int[]{0};
     }
 
     @Override
     public boolean canInsertItem(int index, ItemStack stack, @Nullable Direction direction) {
-        ItemStack currentStack = this.items.get(0);
-        return isFuel(stack) || stack.getItem() == Items.BUCKET && currentStack.getItem() != Items.BUCKET;
+        return fuelStacks.isItemValidForSlot(index, stack);
     }
 
     @Override
     public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-        return !this.items.get(0).isEmpty();
+        return !fuelStacks.isEmpty();
     }
 
     @Override
@@ -76,63 +65,37 @@ public class HotPlateTileEntity extends LockableTileEntity implements ISidedInve
 
     @Override
     protected Container createMenu(int id, PlayerInventory player) {
-        return new HotPlateContainer(id, player, this, this.hotPlateData);
+        return new HotPlateContainer(id, player, fuelStacks, data);
     }
 
     @Override
     public int getSizeInventory() {
-        return items.size();
+        return fuelStacks.getSizeInventory();
     }
 
     @Override
     public boolean isEmpty() {
-        for(ItemStack itemstack : this.items) {
-            if (!itemstack.isEmpty()) {
-                return false;
-            }
-        }
-
-        return true;
+        return fuelStacks.isEmpty();
     }
 
     @Override
     public ItemStack getStackInSlot(int index) {
-        return this.items.get(index);
+        return fuelStacks.getStackInSlot(index);
     }
 
     @Override
     public ItemStack decrStackSize(int index, int count) {
-        return ItemStackHelper.getAndSplit(this.items, index, count);
+        return fuelStacks.decrStackSize(index, count);
     }
 
     @Override
     public ItemStack removeStackFromSlot(int index) {
-        return ItemStackHelper.getAndRemove(this.items, index);
+        return fuelStacks.getAndRemove(index);
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        this.items.set(index, stack);
-        if (stack.getCount() > this.getInventoryStackLimit()) {
-            stack.setCount(this.getInventoryStackLimit());
-        }
-
-        if (burnTime == 0) {
-            startBurning(stack);
-        }
-    }
-
-    private void startBurning(ItemStack fuel) {
-        this.burnTime = getBurnTime(fuel);
-        if (this.burnTime > 0) {
-            fuel.shrink(1);
-            if (fuel.isEmpty()) {
-                this.items.set(1, fuel.getContainerItem());
-            }
-
-            this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(HotPlateBlock.LIT, true));
-            this.markDirty();
-        }
+        fuelStacks.setInventorySlotContents(index, stack);
     }
 
     @Override
@@ -146,17 +109,104 @@ public class HotPlateTileEntity extends LockableTileEntity implements ISidedInve
 
     @Override
     public void clear() {
-        this.items.clear();
+        fuelStacks.clear();
     }
 
     @Override
     public void tick() {
-        if (this.burnTime > 0) {
-            this.burnTime = this.burnTime - 1;
+        if (data.burnTime <= 0) {
+            tryToBurn();
+        } else {
+            data.burnTime = data.burnTime - 1;
 
-            if (this.burnTime == 0) {
-                this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(HotPlateBlock.LIT, false));
+            if (data.burnTime == 0) {
+                tryToBurn();
+
+                if (data.burnTime == 0) {
+                    this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(HotPlateBlock.LIT, false));
+                    this.markDirty();
+                }
             }
         }
+    }
+
+    private void tryToBurn() {
+        ItemStack fuel = fuelStacks.getStackInSlot(0);
+        data.burnTime = getBurnTime(fuel);
+        if (data.burnTime > 0) {
+            data.initialBurnTime = data.burnTime;
+
+            fuel.shrink(1);
+            if (fuel.isEmpty()) {
+                fuelStacks.setInventorySlotContents(0, fuel.getContainerItem());
+            }
+
+            this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(HotPlateBlock.LIT, true));
+            this.markDirty();
+        }
+    }
+
+    @Override
+    public CompoundNBT write(CompoundNBT nbt) {
+        super.write(nbt);
+        data.putIntoNBT(nbt);
+        nbt.put(NBT_FUEL_STACKS, fuelStacks.serializeNBT());
+        return nbt;
+    }
+
+    // read
+    @Override
+    public void func_230337_a_(BlockState blockState, CompoundNBT nbt) {
+        super.func_230337_a_(blockState, nbt);
+
+        data.readFromNBT(nbt);
+
+        CompoundNBT fuelStacksNBT = nbt.getCompound(NBT_FUEL_STACKS);
+        fuelStacks.deserializeNBT(fuelStacksNBT);
+
+        if (fuelStacks.getSizeInventory() != NUM_FUEL_SLOTS) {
+            throw new IllegalArgumentException("Corrupted NBT: number of inventory slots did not match expected");
+        }
+    }
+
+    @Nullable
+    @Override
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        CompoundNBT updateTagDescribingTileEntityState = getUpdateTag();
+        return new SUpdateTileEntityPacket(pos, 0, updateTagDescribingTileEntityState);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+        CompoundNBT updateTagDescribingTileEntityState = pkt.getNbtCompound();
+        BlockState blockState = world.getBlockState(pos);
+        handleUpdateTag(blockState, updateTagDescribingTileEntityState);
+    }
+
+    @Override
+    public CompoundNBT getUpdateTag() {
+        CompoundNBT nbt = new CompoundNBT();
+        write(nbt);
+        return nbt;
+    }
+
+    @Override
+    public void handleUpdateTag(BlockState blockState, CompoundNBT tag) {
+        func_230337_a_(blockState, tag);
+    }
+
+    public void dropAllContents(World world, BlockPos blockPos) {
+        InventoryHelper.dropInventoryItems(world, blockPos, fuelStacks);
+    }
+
+    @Override
+    public ITextComponent getDisplayName() {
+        return new TranslationTextComponent("container.dwarfery.hot_plate");
+    }
+
+    @Nullable
+    @Override
+    public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+        return HotPlateContainer.createContainerServerSide(id, playerInventory, fuelStacks, data);
     }
 }

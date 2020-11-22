@@ -2,10 +2,11 @@ package ht.dwarfery.block;
 
 import ht.dwarfery.tileentity.HotPlateTileEntity;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ContainerBlock;
-import net.minecraft.block.FurnaceBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
@@ -13,9 +14,6 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.stats.Stats;
-import net.minecraft.tileentity.AbstractFurnaceTileEntity;
-import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -25,9 +23,9 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
@@ -82,19 +80,25 @@ public class HotPlateBlock extends ContainerBlock {
         return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
 
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (worldIn.isRemote) {
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    public ActionResultType onBlockActivated(BlockState blockState, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if (worldIn.isRemote) { // Don't do anything on client side
             return ActionResultType.SUCCESS;
         } else {
-            this.interactWith(worldIn, pos, player);
+            this.interactWith(blockState, worldIn, pos, player);
             return ActionResultType.CONSUME;
         }
     }
 
-    protected void interactWith(World worldIn, BlockPos pos, PlayerEntity player) {
-        TileEntity tileentity = worldIn.getTileEntity(pos);
-        if (tileentity instanceof HotPlateTileEntity) {
-            player.openContainer((INamedContainerProvider)tileentity);
+    protected void interactWith(BlockState blockState, World world, BlockPos pos, PlayerEntity player) {
+        INamedContainerProvider namedContainerProvider = getContainer(blockState, world, pos);
+        if (namedContainerProvider != null) {
+            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
+            NetworkHooks.openGui(serverPlayerEntity, namedContainerProvider, (packetBuffer -> {}));
         }
     }
 
