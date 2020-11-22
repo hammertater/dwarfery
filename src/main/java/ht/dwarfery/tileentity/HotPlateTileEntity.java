@@ -1,5 +1,6 @@
 package ht.dwarfery.tileentity;
 
+import ht.dwarfery.DwarferyMod;
 import ht.dwarfery.block.HotPlateBlock;
 import ht.dwarfery.init.ModTileEntities;
 import ht.dwarfery.inventory.container.ContainerStacks;
@@ -16,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.util.Direction;
@@ -114,18 +116,25 @@ public class HotPlateTileEntity extends LockableTileEntity implements INamedCont
 
     @Override
     public void tick() {
-        if (data.burnTime <= 0) {
-            tryToBurn();
-        } else {
-            data.burnTime = data.burnTime - 1;
+        if (Math.floorMod(data.burnTime - 1, 10) == 0) {
+            DwarferyMod.LOGGER.info("burnTime: " + (data.burnTime - 1));
+        }
 
+        if (data.burnTime > 0) {
+            data.burnTime = data.burnTime - 1;
+        }
+
+        if (!this.world.isRemote) {
             if (data.burnTime == 0) {
                 tryToBurn();
+            }
 
-                if (data.burnTime == 0) {
-                    this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(HotPlateBlock.LIT, false));
-                    this.markDirty();
-                }
+            boolean isLit = world.getBlockState(pos).get(HotPlateBlock.LIT);
+            boolean shouldBeLit = (data.burnTime > 0);
+            if (isLit != shouldBeLit) {
+                DwarferyMod.LOGGER.info("LIT: " + shouldBeLit);
+                this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(HotPlateBlock.LIT, shouldBeLit));
+                this.markDirty();
             }
         }
     }
@@ -140,8 +149,6 @@ public class HotPlateTileEntity extends LockableTileEntity implements INamedCont
             if (fuel.isEmpty()) {
                 fuelStacks.setInventorySlotContents(0, fuel.getContainerItem());
             }
-
-            this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(HotPlateBlock.LIT, true));
             this.markDirty();
         }
     }

@@ -3,11 +3,11 @@
 	"parent": "minecraft:block/block",
 	"textures": {
 		"top": "dwarfery:block/hot_plate_top",
-		"particle": "dwarfery:block/hot_plate_top",
+		"particle": "dwarfery:block/hot_plate_side",
 		"front": "dwarfery:block/hot_plate_front_off",
 		"side": "dwarfery:block/hot_plate_side",
 		"coil": "dwarfery:block/wrought_iron",
-		"bottom": "dwarfery:block/hot_plate_bottom"
+		"bottom": "minecraft:block/furnace_top"
 	},
 	"elements": [
 		{
