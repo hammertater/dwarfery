@@ -90,7 +90,7 @@ public class HotPlateBlock extends ContainerBlock {
             if (rand.nextDouble() < 0.1D) {
                 worldIn.playSound(d0, d1, d2, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
             }
-d -
+
             Direction direction = stateIn.get(FACING);
             Direction.Axis direction$axis = direction.getAxis();
             double d3 = 0.52D;
