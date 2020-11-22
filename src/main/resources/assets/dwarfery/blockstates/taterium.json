@@ -2,7 +2,7 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "all": "dwarfery:blocks/taterium"
+            "all": "dwarfery:block/taterium"
         },
         "model": "dwarfery:taterium",
         "uvlock": true

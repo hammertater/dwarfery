@@ -1,8 +1,9 @@
 {
 	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
 	"textures": {
-		"all": "dwarfery:blocks/geode",
-		"particle": "dwarfery:blocks/geode"
+		"all": "dwarfery:block/geode",
+		"particle": "dwarfery:block/geode"
 	},
 	"elements": [
 		{

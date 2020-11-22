@@ -1,0 +1,6 @@
+{
+	"parent": "dwarfery:block/hot_plate",
+	"textures": {
+		"coil": "dwarfery:block/hot_iron"
+	}
+}

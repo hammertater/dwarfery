@@ -1,12 +1,13 @@
 {
 	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
 	"textures": {
-		"top": "dwarfery:blocks/hot_plate_top",
-		"particle": "dwarfery:blocks/hot_plate_top",
-		"front": "dwarfery:blocks/hot_plate_front_off",
-		"side": "dwarfery:blocks/hot_plate_side",
-		"coil": "dwarfery:blocks/wrought_iron",
-		"bottom": "dwarfery:blocks/hot_plate_bottom"
+		"top": "dwarfery:block/hot_plate_top",
+		"particle": "dwarfery:block/hot_plate_top",
+		"front": "dwarfery:block/hot_plate_front_off",
+		"side": "dwarfery:block/hot_plate_side",
+		"coil": "dwarfery:block/wrought_iron",
+		"bottom": "dwarfery:block/hot_plate_bottom"
 	},
 	"elements": [
 		{
