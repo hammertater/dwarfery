@@ -116,10 +116,6 @@ public class HotPlateTileEntity extends LockableTileEntity implements INamedCont
 
     @Override
     public void tick() {
-        if (Math.floorMod(data.burnTime - 1, 10) == 0) {
-            DwarferyMod.LOGGER.info("burnTime: " + (data.burnTime - 1));
-        }
-
         if (data.burnTime > 0) {
             data.burnTime = data.burnTime - 1;
         }
@@ -132,7 +128,6 @@ public class HotPlateTileEntity extends LockableTileEntity implements INamedCont
             boolean isLit = world.getBlockState(pos).get(HotPlateBlock.LIT);
             boolean shouldBeLit = (data.burnTime > 0);
             if (isLit != shouldBeLit) {
-                DwarferyMod.LOGGER.info("LIT: " + shouldBeLit);
                 this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(HotPlateBlock.LIT, shouldBeLit));
                 this.markDirty();
             }
