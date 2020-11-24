@@ -20,4 +20,8 @@ public class ModItems {
             () -> new BlockItem(ModBlocks.HOT_PLATE.get(), new Item.Properties().group(DwarferyMod.TAB))
     );
 
+    public static final RegistryObject<Item> ROCK_SPLITTER = ITEMS.register("rock_splitter",
+            () -> new BlockItem(ModBlocks.ROCK_SPLITTER.get(), new Item.Properties().group(DwarferyMod.TAB))
+    );
+
 }

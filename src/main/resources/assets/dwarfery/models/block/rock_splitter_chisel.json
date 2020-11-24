@@ -1,0 +1,31 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"shaft": "dwarfery:block/wrought_iron",
+		"tip": "minecraft:block/iron_block"
+	},
+	"elements": [
+		{
+			"from": [6, 6, 10],
+			"to": [10, 10, 20],
+			"faces": {
+				"east": {"uv": [0, 4, 16, 8], "texture": "#shaft"},
+				"west": {"uv": [16, 16, 0, 12], "texture": "#shaft"},
+				"up": {"uv": [0, 0, 16, 4], "rotation": 270, "texture": "#shaft"},
+				"down": {"uv": [0, 8, 16, 12], "rotation": 90, "texture": "#shaft"}
+			}
+		},
+		{
+			"from": [6, 6, 6],
+			"to": [10, 10, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 8, 6]},
+			"faces": {
+				"north": {"uv": [6, 6, 10, 10], "texture": "#tip"},
+				"east": {"uv": [12, 0, 16, 4], "texture": "#tip"},
+				"west": {"uv": [0, 0, 4, 4], "texture": "#tip"},
+				"up": {"uv": [10, 0, 15, 5], "texture": "#tip"},
+				"down": {"uv": [6, 12, 10, 16], "texture": "#tip"}
+			}
+		}
+	]
+}

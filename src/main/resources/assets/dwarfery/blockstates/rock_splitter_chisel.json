@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "dwarfery:block/rock_splitter_chisel",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "dwarfery:block/rock_splitter_chisel",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "dwarfery:block/rock_splitter_chisel"
+    },
+    "facing=south": {
+      "model": "dwarfery:block/rock_splitter_chisel",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "dwarfery:block/rock_splitter_chisel",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "dwarfery:block/rock_splitter_chisel",
+      "y": 270
+    }
+  }
+}

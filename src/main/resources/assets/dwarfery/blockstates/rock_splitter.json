@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "extended=false,facing=down": {
+      "model": "dwarfery:block/rock_splitter",
+      "x": 90
+    },
+    "extended=false,facing=east": {
+      "model": "dwarfery:block/rock_splitter",
+      "y": 90
+    },
+    "extended=false,facing=north": {
+      "model": "dwarfery:block/rock_splitter"
+    },
+    "extended=false,facing=south": {
+      "model": "dwarfery:block/rock_splitter",
+      "y": 180
+    },
+    "extended=false,facing=up": {
+      "model": "dwarfery:block/rock_splitter",
+      "x": 270
+    },
+    "extended=false,facing=west": {
+      "model": "dwarfery:block/rock_splitter",
+      "y": 270
+    },
+    "extended=true,facing=down": {
+      "model": "dwarfery:block/rock_splitter_extended",
+      "x": 90
+    },
+    "extended=true,facing=east": {
+      "model": "dwarfery:block/rock_splitter_extended",
+      "y": 90
+    },
+    "extended=true,facing=north": {
+      "model": "dwarfery:block/rock_splitter_extended"
+    },
+    "extended=true,facing=south": {
+      "model": "dwarfery:block/rock_splitter_extended",
+      "y": 180
+    },
+    "extended=true,facing=up": {
+      "model": "dwarfery:block/rock_splitter_extended",
+      "x": 270
+    },
+    "extended=true,facing=west": {
+      "model": "dwarfery:block/rock_splitter_extended",
+      "y": 270
+    }
+  }
+}

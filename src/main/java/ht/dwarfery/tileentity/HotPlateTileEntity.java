@@ -1,13 +1,11 @@
 package ht.dwarfery.tileentity;
 
-import ht.dwarfery.DwarferyMod;
 import ht.dwarfery.block.HotPlateBlock;
 import ht.dwarfery.init.ModTileEntities;
 import ht.dwarfery.inventory.container.ContainerStacks;
 import ht.dwarfery.inventory.container.HotPlateContainer;
 import ht.dwarfery.inventory.container.HotPlateData;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.MagmaBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -18,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableTileEntity;
 import net.minecraft.util.Direction;

@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"all": "dwarfery:block/geode",
-		"particle": "dwarfery:block/geode"
+		"particle": "dwarfery:block/geode",
+		"all": "dwarfery:block/geode"
 	},
 	"elements": [
 		{
@@ -14,7 +14,6 @@
 				"east": {"uv": [0, 0, 12, 1], "texture": "#all"},
 				"south": {"uv": [0, 0, 12, 1], "texture": "#all"},
 				"west": {"uv": [0, 0, 12, 1], "texture": "#all"},
-				"up": {"uv": [0, 0, 0, 0], "texture": "#all"},
 				"down": {"uv": [0, 0, 12, 12], "texture": "#all"}
 			}
 		},
@@ -38,8 +37,7 @@
 				"east": {"uv": [12, 3, 13, 13], "rotation": 90, "texture": "#all"},
 				"south": {"uv": [3, 12, 13, 13], "texture": "#all"},
 				"west": {"uv": [3, 3, 4, 13], "rotation": 270, "texture": "#all"},
-				"up": {"uv": [3, 3, 13, 13], "texture": "#all"},
-				"down": {"uv": [0, 0, 0, 0], "texture": "#all"}
+				"up": {"uv": [3, 3, 13, 13], "texture": "#all"}
 			}
 		},
 		{
@@ -50,8 +48,7 @@
 				"east": {"uv": [13, 2, 15, 14], "rotation": 90, "texture": "#all"},
 				"south": {"uv": [2, 13, 14, 15], "texture": "#all"},
 				"west": {"uv": [1, 2, 3, 14], "rotation": 270, "texture": "#all"},
-				"up": {"uv": [2, 2, 14, 14], "texture": "#all"},
-				"down": {"uv": [0, 0, 0, 0], "texture": "#all"}
+				"up": {"uv": [2, 2, 14, 14], "texture": "#all"}
 			}
 		}
 	],
