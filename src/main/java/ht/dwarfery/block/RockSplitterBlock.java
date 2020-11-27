@@ -218,7 +218,7 @@ public class RockSplitterBlock extends DirectionalBlock {
             world.setBlockState(pos, newMovingState, 20);
             world.setTileEntity(pos, MovingRockSplitterBlock.createTileEntity(this.getDefaultState().with(FACING, Direction.byIndex(param & 7)), facing, false));
             world.func_230547_a_(pos, newMovingState.getBlock());
-            newMovingState.func_235734_a_(world, pos, 2);
+            newMovingState.updateNeighbours(world, pos, 2);
 
             world.removeBlock(pos.offset(facing), false);
             world.playSound(null, pos, SoundEvents.BLOCK_PISTON_CONTRACT, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.25F + 0.6F);

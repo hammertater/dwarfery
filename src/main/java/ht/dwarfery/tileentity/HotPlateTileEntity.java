@@ -154,10 +154,9 @@ public class HotPlateTileEntity extends LockableTileEntity implements INamedCont
         return nbt;
     }
 
-    // read
     @Override
-    public void func_230337_a_(BlockState blockState, CompoundNBT nbt) {
-        super.func_230337_a_(blockState, nbt);
+    public void read(BlockState blockState, CompoundNBT nbt) {
+        super.read(blockState, nbt);
 
         data.readFromNBT(nbt);
 
@@ -192,7 +191,7 @@ public class HotPlateTileEntity extends LockableTileEntity implements INamedCont
 
     @Override
     public void handleUpdateTag(BlockState blockState, CompoundNBT tag) {
-        func_230337_a_(blockState, tag);
+        read(blockState, tag);
     }
 
     public void dropAllContents(World world, BlockPos blockPos) {

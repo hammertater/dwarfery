@@ -46,7 +46,7 @@ public class HotPlateBlock extends ContainerBlock {
 
     public HotPlateBlock(Properties properties) {
         super(properties
-                .func_235838_a_(HotPlateBlock::getLightLevel)
+                .setLightLevel(HotPlateBlock::getLightLevel)
         );
         this.setDefaultState(
                 this.stateContainer.getBaseState()
@@ -71,7 +71,7 @@ public class HotPlateBlock extends ContainerBlock {
     // Copied from MagmaBlock
     @Override
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-        if (worldIn.getBlockState(pos).get(LIT) && !entityIn.func_230279_az_() && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entityIn)) {
+        if (worldIn.getBlockState(pos).get(LIT) && !entityIn.isImmuneToFire() && entityIn instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entityIn)) {
             entityIn.attackEntityFrom(DamageSource.HOT_FLOOR, 1.0F);
         }
 

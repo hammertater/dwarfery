@@ -75,6 +75,7 @@ public class MovingRockSplitterBlock extends ContainerBlock {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote && worldIn.getTileEntity(pos) == null) {
             worldIn.removeBlock(pos, false);
@@ -84,15 +85,18 @@ public class MovingRockSplitterBlock extends ContainerBlock {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        RockSplitterTileEntity tileEntity = this.getTileEntity(builder.getWorld(), builder.assertPresent(LootParameters.POSITION));
+        RockSplitterTileEntity tileEntity = (RockSplitterTileEntity) builder.get(LootParameters.BLOCK_ENTITY);
         return tileEntity == null ? Collections.emptyList() : tileEntity.getChiselState().getDrops(builder);
     }
 
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return VoxelShapes.empty();
     }
 
+    @SuppressWarnings("deprecation")
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         RockSplitterTileEntity tileEntity = this.getTileEntity(worldIn, pos);
         return tileEntity != null ? tileEntity.getCollisionShape(worldIn, pos) : VoxelShapes.empty();
@@ -104,10 +108,12 @@ public class MovingRockSplitterBlock extends ContainerBlock {
         return tileEntity instanceof RockSplitterTileEntity ? (RockSplitterTileEntity) tileEntity : null;
     }
 
+    @SuppressWarnings("deprecation")
     public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
         return ItemStack.EMPTY;
     }
 
+    @SuppressWarnings("deprecation")
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
         return false;
     }

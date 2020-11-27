@@ -20,35 +20,35 @@ public class HotPlateScreen extends ContainerScreen<HotPlateContainer> {
     /**
      * Used to center title text
      */
-    public void func_231160_c_() {
-        super.func_231160_c_();
-        this.field_238742_p_ = (this.xSize - this.field_230712_o_.func_238414_a_(this.field_230704_d_)) / 2;
+    public void init() {
+        super.init();
+        titleX = (xSize - font.getStringPropertyWidth(title)) / 2;
     }
 
     /**
      * render
      */
-    public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        this.func_230446_a_(matrixStack); // this.renderBackground
-        super.func_230430_a_(matrixStack, mouseX, mouseY, partialTicks); // super.render
-        this.func_230459_a_(matrixStack, mouseX, mouseY); // this.renderHoveredToolTip
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(matrixStack);
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
     }
 
     /**
      * Draw the background layer
      */
     @Override
-    protected void func_230450_a_(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.field_230706_i_.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
+        minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
 
-        int i = this.guiLeft;
-        int j = this.guiTop;
-        this.func_238474_b_(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
+        int i = guiLeft;
+        int j = guiTop;
+        this.blit(matrixStack, i, j, 0, 0, xSize, ySize);
 
         if (this.container.isBurning()) {
             int k = (int) (this.container.getBurnLeftScaled() * 13);
-            this.func_238474_b_(matrixStack, i + 80, j + 24 + 12 - k, 176, 12 - k, 14, k + 1);
+            this.blit(matrixStack, i + 80, j + 24 + 12 - k, 176, 12 - k, 14, k + 1);
         }
     }
 

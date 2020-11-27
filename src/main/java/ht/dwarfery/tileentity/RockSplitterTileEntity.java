@@ -34,7 +34,6 @@ public class RockSplitterTileEntity extends TileEntity implements ITickableTileE
     private float progress;
     /** the progress in (de)extending */
     private float lastProgress;
-    private long lastTicked;
 
     public RockSplitterTileEntity() {
         super(ModTileEntities.ROCK_SPLITTER.get());
@@ -60,14 +59,6 @@ public class RockSplitterTileEntity extends TileEntity implements ITickableTileE
      */
     public boolean isExtending() {
         return extending;
-    }
-
-    public Direction getFacing() {
-        return facing;
-    }
-
-    public long getLastTicked() {
-        return lastTicked;
     }
 
     public BlockState getChiselState() {
@@ -153,7 +144,7 @@ public class RockSplitterTileEntity extends TileEntity implements ITickableTileE
     }
 
     private static boolean func_227021_a_(AxisAlignedBB axisAlignedBB, Entity entity) {
-        return entity.getPushReaction() == PushReaction.NORMAL && entity.func_233570_aj_() && entity.getPosX() >= axisAlignedBB.minX && entity.getPosX() <= axisAlignedBB.maxX && entity.getPosZ() >= axisAlignedBB.minZ && entity.getPosZ() <= axisAlignedBB.maxZ;
+        return entity.getPushReaction() == PushReaction.NORMAL && entity.isOnGround() && entity.getPosX() >= axisAlignedBB.minX && entity.getPosX() <= axisAlignedBB.maxX && entity.getPosZ() >= axisAlignedBB.minZ && entity.getPosZ() <= axisAlignedBB.maxZ;
     }
 
     private boolean isStuck() {
@@ -187,35 +178,19 @@ public class RockSplitterTileEntity extends TileEntity implements ITickableTileE
         return axisAlignedBB.offset((double) pos.getX() + d0 * (double) facing.getXOffset(), (double) pos.getY() + d0 * (double) facing.getYOffset(), (double) pos.getZ() + d0 * (double) facing.getZOffset());
     }
 
-    private void fixEntityWithinBase(Entity entity, Direction facing, double d) {
-        AxisAlignedBB axisalignedbb = entity.getBoundingBox();
-        AxisAlignedBB axisalignedbb1 = VoxelShapes.fullCube().getBoundingBox().offset(this.pos);
-        if (axisalignedbb.intersects(axisalignedbb1)) {
-            Direction direction = facing.getOpposite();
-            double d0 = getMovement(axisalignedbb1, direction, axisalignedbb) + 0.01D;
-            double d1 = getMovement(axisalignedbb1, direction, axisalignedbb.intersect(axisalignedbb1)) + 0.01D;
-            if (Math.abs(d0 - d1) < 0.01D) {
-                d0 = Math.min(d0, d) + 0.01D;
-                func_227022_a_(facing, entity, d0, direction);
-            }
-        }
-
-    }
-
     @Override
     public void tick() {
-        lastTicked = world.getGameTime();
         lastProgress = progress;
         if (lastProgress >= 1.0F) {
             world.removeTileEntity(pos);
             remove();
             if (chiselState != null && world.getBlockState(pos).isIn(ModBlocks.MOVING_ROCK_SPLITTER.get())) {
                 BlockState blockState = Block.getValidBlockForPosition(chiselState, world, pos);
-                if (blockState.isAir()) {
+                if (blockState.isIn(Blocks.AIR)) {
                     world.setBlockState(pos, chiselState, 84);
                     Block.replaceBlock(chiselState, blockState, world, pos, 3);
                 } else {
-                    if (blockState.func_235901_b_(BlockStateProperties.WATERLOGGED) && blockState.get(BlockStateProperties.WATERLOGGED)) {
+                    if (blockState.hasProperty(BlockStateProperties.WATERLOGGED) && blockState.get(BlockStateProperties.WATERLOGGED)) {
                         blockState = blockState.with(BlockStateProperties.WATERLOGGED, Boolean.FALSE);
                     }
 
@@ -236,8 +211,9 @@ public class RockSplitterTileEntity extends TileEntity implements ITickableTileE
         }
     }
 
-    public void func_230337_a_(BlockState blockState, CompoundNBT nbt) {
-        super.func_230337_a_(blockState, nbt);
+    @Override
+    public void read(BlockState blockState, CompoundNBT nbt) {
+        super.read(blockState, nbt);
         chiselState = NBTUtil.readBlockState(nbt.getCompound("blockState"));
         facing = Direction.byIndex(nbt.getInt("facing"));
         progress = nbt.getFloat("progress");
@@ -246,6 +222,7 @@ public class RockSplitterTileEntity extends TileEntity implements ITickableTileE
         shouldChiselBeRendered = nbt.getBoolean("source");
     }
 
+    @Override
     public CompoundNBT write(CompoundNBT compound) {
         super.write(compound);
         compound.put("blockState", NBTUtil.writeBlockState(chiselState));
